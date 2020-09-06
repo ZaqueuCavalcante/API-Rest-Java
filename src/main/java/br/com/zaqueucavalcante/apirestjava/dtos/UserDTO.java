@@ -1,4 +1,4 @@
-package br.com.zaqueucavalcante.apirestjava.dto;
+package br.com.zaqueucavalcante.apirestjava.dtos;
 
 import java.io.Serializable;
 
