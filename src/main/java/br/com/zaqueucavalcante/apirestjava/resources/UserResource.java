@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.zaqueucavalcante.apirestjava.dtos.UserDTO;
+import br.com.zaqueucavalcante.apirestjava.entities.Post;
 import br.com.zaqueucavalcante.apirestjava.entities.User;
 import br.com.zaqueucavalcante.apirestjava.services.UserService;
 
@@ -63,5 +64,13 @@ public class UserResource {
 	public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
 		User updatedUser = userService.update(id, user);
 		return ResponseEntity.ok().body(updatedUser);
+	}
+	
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findAllPosts(@PathVariable String id) {
+		User user = userService.findById(id);
+		List<Post> userPosts = user.getPosts();
+		return ResponseEntity.ok().body(userPosts);
 	}
 }

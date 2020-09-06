@@ -2,34 +2,38 @@ package br.com.zaqueucavalcante.apirestjava.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "user")
-public class User implements Serializable {
+import br.com.zaqueucavalcante.apirestjava.dtos.AuthorDTO;
+import br.com.zaqueucavalcante.apirestjava.dtos.CommentDTO;
+
+@Document(collection = "post")
+public class Post implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
 
-	private String name;
-	private String email;
+	private Date date;
+	private String body;
+	private AuthorDTO author;
 
-	@DBRef(lazy = true)
-	private List<Post> posts = new ArrayList<>();
+	private List<CommentDTO> comments = new ArrayList<>();
 
-	public User() {
+	public Post() {
 	}
 
-	public User(String id, String name, String email) {
+	public Post(String id, Date date, String body, AuthorDTO author) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.email = email;
+		this.date = date;
+		this.body = body;
+		this.author = author;
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
@@ -37,32 +41,32 @@ public class User implements Serializable {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public Date getDate() {
+		return date;
 	}
 
-	public void editName(String name) {
-		this.name = name;
+	public String getBody() {
+		return body;
 	}
 
-	public String getEmail() {
-		return email;
+	public void editBody(String body) {
+		this.body = body;
 	}
 
-	public void editEmail(String email) {
-		this.email = email;
+	public AuthorDTO getAuthor() {
+		return author;
 	}
 
-	public List<Post> getPosts() {
-		return posts;
+	public List<CommentDTO> getComments() {
+		return comments;
 	}
 
-	public void addPost(Post post) {
-		this.posts.add(post);
+	public void addComment(CommentDTO comment) {
+		this.comments.add(comment);
 	}
 	
-	public void addPosts(List<Post> postsList) {
-		this.posts.addAll(postsList);
+	public void addComments(List<CommentDTO> commentsList) {
+		this.comments.addAll(commentsList);
 	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
@@ -82,7 +86,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Post other = (Post) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
