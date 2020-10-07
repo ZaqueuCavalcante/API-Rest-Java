@@ -32,13 +32,6 @@ public class UserService {
 	public User insert(User user) {
 		return userRepository.save(user);
 	}
-	
-	public User fromDTO(UserDTO userDTO) {
-		String id = userDTO.getId();
-		String name = userDTO.getName();
-		String email = userDTO.getEmail();
-		return new User(id, name, email);
-	}
 
 	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 	public void delete(String id) {
@@ -63,5 +56,13 @@ public class UserService {
 	private void updateUser(User user, User updatedUser) {
 		user.editName(updatedUser.getName());
 		user.editEmail(updatedUser.getEmail());
+	}
+
+	// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+	public User fromDTO(UserDTO userDTO) {
+		String id = userDTO.getId();
+		String name = userDTO.getName();
+		String email = userDTO.getEmail();
+		return new User(id, name, email);
 	}
 }
